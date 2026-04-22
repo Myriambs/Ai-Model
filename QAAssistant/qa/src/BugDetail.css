@@ -1,0 +1,92 @@
+.bug-detail {
+display: flex;
+justify-content: center;
+align-items: center;
+min-height: 100vh;
+background-color: hsl(120, 40%, 60%);
+font-family: "Montserrat", sans-serif;
+padding: 40px 20px;
+}
+
+/* CARD */
+.bug-detail > * {
+max-width: 700px;
+}
+
+.bug-detail {
+position: relative;
+}
+
+/* White card container */
+.bug-detail {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.bug-detail::before {
+content: "";
+}
+
+/* actual card */
+.bug-detail-card {
+    background: white;
+    padding: 107px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 1020px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+    text-align: center;
+}
+
+/* Arrow corner */
+.bug-detail-card::after {
+content: "";
+position: absolute;
+top: -15px;
+left: 40px;
+width: 0;
+height: 0;
+border-left: 15px solid transparent;
+border-right: 15px solid transparent;
+border-bottom: 15px solid white;
+}
+
+/* Title */
+.bug-detail-card h2 {
+margin-bottom: 20px;
+font-size: 26px;
+}
+
+/* Meta section */
+.bug-meta {
+margin-bottom: 20px;
+}
+
+.bug-meta p {
+margin: 5px 0;
+}
+
+/* Description */
+.bug-description {
+margin: 20px 0;
+text-align: left;
+}
+
+.bug-description strong {
+display: block;
+margin-top: 10px;
+}
+
+/* Date + note */
+.bug-date {
+margin-top: 20px;
+font-size: 14px;
+color: #555;
+}
+
+.edited-note {
+margin-top: 10px;
+color: #e67e22;
+}

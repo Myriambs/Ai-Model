@@ -1,0 +1,78 @@
+/* Container (tu peux garder le même fond) */
+.bug-detail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: hsl(120, 40%, 60%);
+  font-family: "Montserrat", sans-serif;
+  padding: 40px 20px;
+}
+
+/* Card */
+.bug-detail-card {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+/* Title */
+.bug-detail-card h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+/* Labels */
+.bug-detail-card label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Inputs */
+.bug-detail-card input,
+.bug-detail-card textarea {
+  margin-top: 6px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+/* Focus effect (clean UX) */
+.bug-detail-card input:focus,
+.bug-detail-card textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Textarea */
+.bug-detail-card textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* Save button */
+.bug-detail-card button {
+  margin-top: 20px;
+  padding: 12px;
+  background: #28c055;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: 0.2s;
+}
+
+.bug-detail-card button:hover {
+  background: #0eb389;
+}
