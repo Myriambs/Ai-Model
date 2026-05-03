@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "./BugTable.css"
 import { Link } from "react-router-dom";
+  import { ToastContainer, toast } from 'react-toastify';
+
 export default function BugTable({ bugs = [], onUpdate }) {
+      const notify = () => toast("The Report is Saved , Go look at your Trello Acount ");
+
   const [editedBugs, setEditedBugs] = useState({});
 //ici la partie ou on montre la severity and status , what is whas and how it will be 
   const handleChange = (bugId, field, value) => {
@@ -14,6 +18,7 @@ export default function BugTable({ bugs = [], onUpdate }) {
     }));
   };
 
+ 
 const handleSave = (bug) => {
   const updates = editedBugs[bug._id];
   if (!updates) return;
@@ -24,6 +29,7 @@ const handleSave = (bug) => {
   }
 
   onUpdate(bug._id, updates);
+ notify()
 };
 
   return (
@@ -81,6 +87,7 @@ const handleSave = (bug) => {
 
             <div className="col col-4" data-label="Save">
   <button onClick={() => handleSave(bug)}>Save</button>
+
   </div>
             <div className="col col-4" >
 

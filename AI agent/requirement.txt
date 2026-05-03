@@ -1,7 +1,11 @@
-langchain 
-wikipedia 
-langchain-community 
+@"
+fastapi
+uvicorn
+langchain
+wikipedia
+langchain-community
 langchain-openai
 langchain-anthropic
 python-dotenv
 pydantic
+"@ | Out-File -FilePath requirements.txt -Encoding utf8

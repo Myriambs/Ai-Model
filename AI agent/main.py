@@ -2,7 +2,8 @@ from google import genai
 from pydantic import BaseModel
 from dotenv import load_dotenv
 from motor.motor_asyncio import AsyncIOMotorClient
-import os, json, re
+from fastapi import HTTPException
+import os, json, re, asyncio
 
 load_dotenv()
 
@@ -12,6 +13,8 @@ MONGO_URI = os.getenv("MONGO_URI")
 mongo_client = AsyncIOMotorClient(MONGO_URI)
 db = mongo_client.qa_dashboard
 bugs_collection = db.bugs
+
+MODELS = ["models/gemini-2.5-flash", "models/gemini-2.0-flash", "models/gemini-2.5-flash-lite-preview-06-17"]
 
 class BugReport(BaseModel):
     title: str
@@ -23,6 +26,7 @@ class BugReport(BaseModel):
     priority: str
     reproducibility: str
     labels: list[str]
+
 def clean_json(text: str) -> str:
     match = re.search(r"```json\s*(.*?)```", text, re.DOTALL)
     if match:
@@ -72,15 +76,45 @@ Now generate a bug report in VALID JSON ONLY with:
 - priority (P1, P2, P3)
 - reproducibility
 - labels
+
 Bug description:
 \"\"\"{description}\"\"\"
 """
 
-    response = client.models.generate_content(
-        model="models/gemini-2.5-flash",
-        contents=prompt
-    )
+    last_error = None
 
-    cleaned = clean_json(response.text)
-    data = json.loads(cleaned)
-    return BugReport(**data)
+    for model in MODELS:
+        for attempt in range(2):  # 2 attempts per model max
+            try:
+                print(f"[AI] Trying {model} (attempt {attempt + 1})...")
+
+                response = client.models.generate_content(
+                    model=model,
+                    contents=prompt
+                )
+
+                cleaned = clean_json(response.text)
+                data = json.loads(cleaned)
+                print(f"[AI] Success with {model}")
+                return BugReport(**data)
+
+            except Exception as e:
+                last_error = e
+                is_overloaded = "503" in str(e) or "UNAVAILABLE" in str(e)
+
+                if is_overloaded:
+                    if attempt == 0:
+                        print(f"[AI] {model} overloaded, retrying in 1s...")
+                        await asyncio.sleep(1)
+                    else:
+                        print(f"[AI] {model} failed twice, switching model...")
+                        break  # move to next model
+                else:
+                    # not a 503, something else is wrong, don't retry
+                    print(f"[AI] Unexpected error: {e}")
+                    raise HTTPException(status_code=500, detail=f"AI error: {str(e)}")
+
+    raise HTTPException(
+        status_code=503,
+        detail="AI service is currently unavailable. Please try again in a moment."
+    )
