@@ -6,25 +6,19 @@
 
 ## 📸 Screenshots
 
-> **How to add your screenshots:**
-> 1. Take screenshots of your extension running
-> 2. Create a folder called `assets` at the root of your project
-> 3. Drop your images there and replace the filenames below
+| Main Extension | Bug List | Bug Detail |
+|----------------|----------|------------|
+| ![Main Extension](assets/mainextension.png) | ![Bug List](assets/bugList.png) | ![Bug Detail](assets/detailBug.png) |
 
-| Main Form | Bug List | Bug Detail |
-|-----------|----------|------------|
-| ![Main Form](assets/form.png) | ![Bug List](assets/buglist.png) | ![Bug Detail](assets/bugdetail.png) |
+| Screenshot Upload | Trello Card Generated |
+|-------------------|-----------------------|
+| ![Upload Screenshot](assets/UplodPhotomainDetailedBug.png) | ![Trello](assets/TrelloBugReportwithUploadedPhoto.png) |
 
 ---
 
 ## 🎬 Demo
 
-> **How to add your video:**
-> 1. Record a 2-3 min Loom or screen recording of the extension working
-> 2. Upload it to YouTube or Loom
-> 3. Replace the link below
-
-[![Watch the demo](assets/form.png)](https://your-video-link-here)
+> 🎥 Full demo video coming soon — shows the complete workflow from bug description → AI report → human correction → Trello card with screenshots.
 
 ---
 
@@ -49,7 +43,7 @@ Every time a QA engineer manually edits a severity or priority, the correction i
 ## 🛠 Tech Stack
 
 | Layer | Technology |
-|-------|-----------|
+|-------|------------|
 | Chrome Extension | React + Vite (built and loaded as unpacked extension) |
 | Backend | FastAPI (Python) |
 | AI | Google Gemini 2.5 Flash (with 2.0 Flash + 2.5 Flash Lite fallback) |
@@ -65,22 +59,23 @@ Every time a QA engineer manually edits a severity or priority, the correction i
 ```
 qa-bug-reporter/
 │
-├── QaAssistant/          # Frontend — React Chrome Extension
+├── QaAssistant/               # Frontend — React Chrome Extension
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── BugForm.jsx       # Main form + AI generation + popup
-│   │   │   ├── BugTable.jsx      # Bug list with inline editing
-│   │   │   ├── BugDetail.jsx     # Full bug view
-│   │   │   └── BugEdit.jsx       # Edit form + screenshot upload
+│   │   │   ├── BugForm.jsx        # Main form + AI generation + popup
+│   │   │   ├── BugTable.jsx       # Bug list with inline editing
+│   │   │   ├── BugDetail.jsx      # Full bug view
+│   │   │   └── BugEdit.jsx        # Edit form + screenshot upload
 │   │   └── App.jsx
 │   ├── public/
-│   │   └── manifest.json         # Chrome extension config
+│   │   └── manifest.json          # Chrome extension config
 │   └── vite.config.js
 │
-└── Aiagent/              # Backend — FastAPI
-    ├── main.py               # AI logic + Gemini calls + fallback
-    ├── backend.py            # API routes + MongoDB + Trello + Cloudinary
-    └── .env                  # API keys (not committed)
+└── Aiagent/                   # Backend — FastAPI
+    ├── main.py                    # AI logic + Gemini calls + fallback
+    ├── backend.py                 # API routes + MongoDB + Trello + Cloudinary
+    ├── requirements.txt
+    └── .env                       # API keys (not committed)
 ```
 
 ---
@@ -90,7 +85,7 @@ qa-bug-reporter/
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/qa-bug-reporter.git
+git clone https://github.com/Myriambs/qa-bug-reporter.git
 cd qa-bug-reporter
 ```
 
@@ -101,7 +96,7 @@ cd Aiagent
 pip install -r requirements.txt
 ```
 
-Create a `.env` file:
+Create a `.env` file in the `Aiagent` folder:
 
 ```env
 GOOGLE_API_KEY=your_gemini_api_key
@@ -117,7 +112,7 @@ CLOUDINARY_API_SECRET=your_cloudinary_secret
 Start the server:
 
 ```bash
-uvicorn backend:app --reload
+python -m uvicorn backend:app --reload
 ```
 
 ### 3. Frontend setup
@@ -139,22 +134,22 @@ npm run build
 
 ## ✨ Key Features
 
-- 🤖 **AI report generation** from a single plain-text description
-- 🧠 **Self-improving** — learns from human QA corrections
-- 🔄 **Smart fallback** — retries across Gemini models automatically with live status popup
-- 📋 **Trello sync** — closed bugs become Trello cards instantly
-- 📸 **Screenshot upload** — via Cloudinary, attached to Trello cards
-- 🌙 **Dark mode UI** — terminal aesthetic built for dev/QA workflows
-- 🔍 **Filter by severity and bug type**
-- ✏️ **Inline editing** of severity, priority, and status
+-  **AI report generation** from a single plain-text description
+-  **Self-improving** — learns from human QA corrections over time
+-  **Smart fallback** — retries across Gemini models automatically with live status popup
+-  **Trello sync** — closed bugs become Trello cards instantly with full details
+-  **Screenshot upload** — via Cloudinary, attached directly to Trello cards
+-  **Dark mode UI** — terminal aesthetic built for dev/QA workflows
+-  **Filter by severity and bug type**
+-  **Inline editing** of severity, priority, and status
 
 ---
 
 ## 👩‍💻 Author
 
-Built by **Meriam** — Biology engineer turned MERN developer, QA engineer, and now AI tooling builder.
+Built by **Meriam** — Biology engineer turned MERN developer, QA engineer, and AI tooling builder.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)]([https://linkedin.com/in/your-profile](https://www.linkedin.com/in/meriam-ben-salah-a921a7119/))
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/meriam-ben-salah-a921a7119/)
 [![GitHub](https://img.shields.io/badge/GitHub-Follow-black)](https://github.com/Myriambs)
 
 ---
